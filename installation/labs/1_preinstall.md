@@ -39,3 +39,13 @@ Show the reserve space of any non-root, ext-based volumes
 
 ** I'm configure only 1 volum to shared with all (root and non-root)
 ```
+Disable transparent hugepages
+```
+[root@ip-172-31-4-207 ~]# cat /sys/kernel/mm/transparent_hugepage/enabled
+[always] madvise never
+[root@ip-172-31-4-207 ~]# echo never > /sys/kernel/mm/transparent_hugepage/enabled
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]# cat /sys/kernel/mm/transparent_hugepage/enabled
+always madvise [never]
+[root@ip-172-31-4-207 ~]#
+```
