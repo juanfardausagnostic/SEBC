@@ -33,5 +33,7 @@ tmpfs           757M     0  757M   0% /run/user/0
 ```
 Show the reserve space of any non-root, ext-based volumes
 ```
-I only have 1 volume with 100GB available space (as result from step above)
+[root@ip-172-31-4-207 ~]# egrep "^/dev/*" /proc/mounts
+/dev/xvda2 / xfs rw,seclabel,relatime,attr2,inode64,noquota 0 0
+[root@ip-172-31-4-207 ~]#
 ```
