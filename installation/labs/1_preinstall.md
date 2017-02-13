@@ -99,7 +99,7 @@ List forward and reverse host lookups using getent or nslookup
 ```
 Show nscd service running
 ```
-Check RHEL Repo and YUM service available
+** Check RHEL Repo and YUM service available
 [root@ip-172-31-4-207 ~]# head /etc/yum.repos.d/redhat-rhui.repo
 # The amazon ec2 region is now dynamically set via yum.  REGION can be replaced by the amazon ec2 region for debugging
 [rhui-REGION-rhel-server-releases]
@@ -120,7 +120,7 @@ nscd.x86_64                                    2.17-157.el7_3.1                 
 [root@ip-172-31-4-207 ~]#
 ```
 ```
-Install nscd package
+** Install nscd package
 [root@ip-172-31-4-207 ~]# yum install nscd
 Loaded plugins: amazon-id, rhui-lb, search-disabled-repos
 Resolving Dependencies
@@ -184,5 +184,39 @@ Dependency Updated:
   glibc.x86_64 0:2.17-157.el7_3.1                              glibc-common.x86_64 0:2.17-157.el7_3.1
 
 Complete!
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]# service nscd status
+Redirecting to /bin/systemctl status  nscd.service
+● nscd.service - Name Service Cache Daemon
+   Loaded: loaded (/usr/lib/systemd/system/nscd.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+[root@ip-172-31-4-207 ~]#
+```
+```
+** Start nscd service
+[root@ip-172-31-4-207 ~]# service nscd start
+Redirecting to /bin/systemctl start  nscd.service
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]# service nscd status
+Redirecting to /bin/systemctl status  nscd.service
+● nscd.service - Name Service Cache Daemon
+   Loaded: loaded (/usr/lib/systemd/system/nscd.service; disabled; vendor preset: disabled)
+   Active: active (running) since Mon 2017-02-13 04:01:49 EST; 9s ago
+  Process: 3259 ExecStart=/usr/sbin/nscd $NSCD_OPTIONS (code=exited, status=0/SUCCESS)
+ Main PID: 3260 (nscd)
+   CGroup: /system.slice/nscd.service
+           └─3260 /usr/sbin/nscd
+
+Feb 13 04:01:49 ip-172-31-4-207.ap-southeast-1.compute.internal nscd[3260]: 3260 monitoring file `/etc/hosts` (4)
+Feb 13 04:01:49 ip-172-31-4-207.ap-southeast-1.compute.internal nscd[3260]: 3260 monitoring directory `/etc` (2)
+Feb 13 04:01:49 ip-172-31-4-207.ap-southeast-1.compute.internal nscd[3260]: 3260 monitoring file `/etc/resolv.conf` (5)
+Feb 13 04:01:49 ip-172-31-4-207.ap-southeast-1.compute.internal nscd[3260]: 3260 monitoring directory `/etc` (2)
+Feb 13 04:01:49 ip-172-31-4-207.ap-southeast-1.compute.internal nscd[3260]: 3260 monitoring file `/etc/services` (6)
+Feb 13 04:01:49 ip-172-31-4-207.ap-southeast-1.compute.internal nscd[3260]: 3260 monitoring directory `/etc` (2)
+Feb 13 04:01:49 ip-172-31-4-207.ap-southeast-1.compute.internal nscd[3260]: 3260 disabled inotify-based monitoring for file `...ory
+Feb 13 04:01:49 ip-172-31-4-207.ap-southeast-1.compute.internal nscd[3260]: 3260 stat failed for file `/etc/netgroup'; will t...ory
+Feb 13 04:01:49 ip-172-31-4-207.ap-southeast-1.compute.internal nscd[3260]: 3260 Access Vector Cache (AVC) started
+Feb 13 04:01:49 ip-172-31-4-207.ap-southeast-1.compute.internal systemd[1]: Started Name Service Cache Daemon.
+Hint: Some lines were ellipsized, use -l to show in full.
 [root@ip-172-31-4-207 ~]#
 ```
