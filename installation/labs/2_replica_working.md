@@ -469,3 +469,44 @@ total 968
 -rw-r--r--. 1 root root 990927 Feb 13 06:06 mysql-connector-java.jar
 [root@ip-172-31-4-207 mysql-connector-java-5.1.40]#
 ```
+Create Required Database
+```
+MariaDB [(none)]> create database amon DEFAULT CHARACTER SET utf8;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> create database rman DEFAULT CHARACTER SET utf8;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> create database metastore DEFAULT CHARACTER SET utf8;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> create database sentry DEFAULT CHARACTER SET utf8;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> create database nav DEFAULT CHARACTER SET utf8;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> create database navms DEFAULT CHARACTER SET utf8;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]>
+MariaDB [(none)]> grant all on amon.* TO 'amon'@'%' IDENTIFIED BY 'password';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> grant all on rman.* TO 'rman'@'%' IDENTIFIED BY 'password';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> grant all on metastore.* TO 'hive'@'%' IDENTIFIED BY 'password';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> grant all on sentry.* TO 'sentry'@'%' IDENTIFIED BY 'password';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> grant all on nav.* TO 'nav'@'%' IDENTIFIED BY 'password';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> grant all on navms.* TO 'navms'@'%' IDENTIFIED BY 'password';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]>
+```
