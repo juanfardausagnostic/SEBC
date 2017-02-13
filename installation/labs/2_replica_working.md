@@ -527,7 +527,7 @@ MariaDB [(none)]> show databases;
 
 MariaDB [(none)]>
 ```
-Create Database for Oozie
+Create Database for Oozie and Hue
 ```
 [root@ip-172-31-4-207 .ssh]# mysql -u root -p
 Enter password:
@@ -546,6 +546,16 @@ MariaDB [(none)]> grant all privileges on oozie.* to 'oozie'@'localhost' identif
 Query OK, 0 rows affected (0.00 sec)
 
 MariaDB [(none)]> grant all privileges on oozie.* to 'oozie'@'%' identified by 'password';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]>
+MariaDB [(none)]> create database hue;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> grant all on hue.* to 'hue'@'localhost' identified by 'password';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> grant all on hue.* to 'hue'@'%' identified by 'password';
 Query OK, 0 rows affected (0.00 sec)
 
 MariaDB [(none)]>
