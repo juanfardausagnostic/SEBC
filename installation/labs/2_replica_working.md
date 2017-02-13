@@ -527,6 +527,29 @@ MariaDB [(none)]> show databases;
 
 MariaDB [(none)]>
 ```
+Create Database for Oozie
+```
+[root@ip-172-31-4-207 .ssh]# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 388
+Server version: 5.5.52-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database oozie;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> grant all privileges on oozie.* to 'oozie'@'localhost' identified by 'password';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> grant all privileges on oozie.* to 'oozie'@'%' identified by 'password';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]>
+```
 Set Replica (On Master)
 ```
 [root@ip-172-31-4-207 ~]# cat /etc/my.cnf |grep server
