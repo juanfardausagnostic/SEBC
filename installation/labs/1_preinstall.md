@@ -97,3 +97,92 @@ List forward and reverse host lookups using getent or nslookup
 172.31.4.207    ip-172-31-4-207.ap-southeast-1.compute.internal
 [root@ip-172-31-4-207 ~]#
 ```
+Show nscd service running
+```
+Check RHEL Repo and YUM service available
+[root@ip-172-31-4-207 ~]# head /etc/yum.repos.d/redhat-rhui.repo
+# The amazon ec2 region is now dynamically set via yum.  REGION can be replaced by the amazon ec2 region for debugging
+[rhui-REGION-rhel-server-releases]
+name=Red Hat Enterprise Linux Server 7 (RPMs)
+mirrorlist=https://rhui2-cds01.REGION.aws.ce.redhat.com/pulp/mirror/content/dist/rhel/rhui/server/7/$releasever/$basearch/os
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+sslverify=1
+sslclientkey=/etc/pki/rhui/content-rhel7.key
+sslclientcert=/etc/pki/rhui/product/content-rhel7.crt
+[root@ip-172-31-4-207 ~]#
+
+[root@ip-172-31-4-207 ~]# yum list nscd
+Loaded plugins: amazon-id, rhui-lb, search-disabled-repos
+Available Packages
+nscd.x86_64                                    2.17-157.el7_3.1                                    rhui-REGION-rhel-server-releases
+[root@ip-172-31-4-207 ~]#
+```
+```
+Install nscd package
+[root@ip-172-31-4-207 ~]# yum install nscd
+Loaded plugins: amazon-id, rhui-lb, search-disabled-repos
+Resolving Dependencies
+--> Running transaction check
+---> Package nscd.x86_64 0:2.17-157.el7_3.1 will be installed
+--> Processing Dependency: glibc = 2.17-157.el7_3.1 for package: nscd-2.17-157.el7_3.1.x86_64
+--> Running transaction check
+---> Package glibc.x86_64 0:2.17-157.el7 will be updated
+--> Processing Dependency: glibc = 2.17-157.el7 for package: glibc-common-2.17-157.el7.x86_64
+---> Package glibc.x86_64 0:2.17-157.el7_3.1 will be an update
+--> Running transaction check
+---> Package glibc-common.x86_64 0:2.17-157.el7 will be updated
+---> Package glibc-common.x86_64 0:2.17-157.el7_3.1 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===================================================================================================================================
+ Package                   Arch                Version                         Repository                                     Size
+===================================================================================================================================
+Installing:
+ nscd                      x86_64              2.17-157.el7_3.1                rhui-REGION-rhel-server-releases              267 k
+Updating for dependencies:
+ glibc                     x86_64              2.17-157.el7_3.1                rhui-REGION-rhel-server-releases              3.6 M
+ glibc-common              x86_64              2.17-157.el7_3.1                rhui-REGION-rhel-server-releases               11 M
+
+Transaction Summary
+===================================================================================================================================
+Install  1 Package
+Upgrade             ( 2 Dependent packages)
+
+Total download size: 15 M
+Is this ok [y/d/N]: y
+Downloading packages:
+Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
+(1/3): glibc-2.17-157.el7_3.1.x86_64.rpm                                                                    | 3.6 MB  00:00:00
+(2/3): nscd-2.17-157.el7_3.1.x86_64.rpm                                                                     | 267 kB  00:00:00
+(3/3): glibc-common-2.17-157.el7_3.1.x86_64.rpm                                                             |  11 MB  00:00:00
+-----------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                               15 MB/s |  15 MB  00:00:01
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Updating   : glibc-common-2.17-157.el7_3.1.x86_64                                                                            1/5
+  Updating   : glibc-2.17-157.el7_3.1.x86_64                                                                                   2/5
+warning: /etc/nsswitch.conf created as /etc/nsswitch.conf.rpmnew
+  Installing : nscd-2.17-157.el7_3.1.x86_64                                                                                    3/5
+  Cleanup    : glibc-common-2.17-157.el7.x86_64                                                                                4/5
+  Cleanup    : glibc-2.17-157.el7.x86_64                                                                                       5/5
+  Verifying  : glibc-2.17-157.el7_3.1.x86_64                                                                                   1/5
+  Verifying  : nscd-2.17-157.el7_3.1.x86_64                                                                                    2/5
+  Verifying  : glibc-common-2.17-157.el7_3.1.x86_64                                                                            3/5
+  Verifying  : glibc-common-2.17-157.el7.x86_64                                                                                4/5
+  Verifying  : glibc-2.17-157.el7.x86_64                                                                                       5/5
+
+Installed:
+  nscd.x86_64 0:2.17-157.el7_3.1
+
+Dependency Updated:
+  glibc.x86_64 0:2.17-157.el7_3.1                              glibc-common.x86_64 0:2.17-157.el7_3.1
+
+Complete!
+[root@ip-172-31-4-207 ~]#
+```
