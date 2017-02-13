@@ -43,15 +43,22 @@ Disable transparent hugepages
 ```
 [root@ip-172-31-4-207 ~]# cat /sys/kernel/mm/transparent_hugepage/enabled
 [always] madvise never
+[root@ip-172-31-4-207 ~]# cat /sys/kernel/mm/transparent_hugepage/defrag
+[always] madvise never
+[root@ip-172-31-4-207 ~]#
 [root@ip-172-31-4-207 ~]# echo never > /sys/kernel/mm/transparent_hugepage/enabled
+[root@ip-172-31-4-207 ~]# echo never > /sys/kernel/mm/transparent_hugepage/defrag
 [root@ip-172-31-4-207 ~]#
 [root@ip-172-31-4-207 ~]# cat /sys/kernel/mm/transparent_hugepage/enabled
+always madvise [never]
+[root@ip-172-31-4-207 ~]# cat /sys/kernel/mm/transparent_hugepage/defrag
 always madvise [never]
 [root@ip-172-31-4-207 ~]#
 
 ** Setup permanent when machine startup
-[root@ip-172-31-4-207 ~]# tail -1 /etc/rc.local
+[root@ip-172-31-4-207 ~]# tail -2 /etc/rc.local
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
+echo never > /sys/kernel/mm/transparent_hugepage/defrag
 [root@ip-172-31-4-207 ~]#
 ```
 List the network interface configuration
