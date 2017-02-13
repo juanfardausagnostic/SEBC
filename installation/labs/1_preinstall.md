@@ -319,3 +319,93 @@ Feb 13 04:08:41 ip-172-31-4-207.ap-southeast-1.compute.internal ntpd[3410]: 0.0.
 Hint: Some lines were ellipsized, use -l to show in full.
 [root@ip-172-31-4-207 ~]#
 ```
+Setup SSH with passwordless
+```
+** Gen Key on CM server
+[root@ip-172-31-4-207 ~]# ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+98:33:f7:c4:ec:02:89:36:5c:cf:84:a6:6a:e1:4c:17 root@ip-172-31-4-207.ap-southeast-1.compute.internal
+The key's randomart image is:
++--[ RSA 2048]----+
+|                 |
+|       .         |
+|    E + .        |
+|   . * B o       |
+|  o B B S +      |
+| + = . = +       |
+|  =     . o      |
+| .       .       |
+|                 |
++-----------------+
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]#
+
+** Add Key in "authorized_keys" file (All Node)
+[root@ip-172-31-4-207 ~]# cd .ssh
+[root@ip-172-31-4-207 .ssh]# ls
+authorized_keys  id_rsa  id_rsa.pub
+[root@ip-172-31-4-207 .ssh]# cat id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZPxtmeHx/9A/mAj1pVeWSMUFiLGHEM1OpOdcL1tLFYB38uz/scHZkoeKCWHNxSw5L7PHs7t4AufSdyu+FX2BYY+myAjMFsUY9v81kMgQ/HKRaA89m1Xmsd4Hxie9Bf+vYAlWNCltmDxwjliqIlYm9j1eUI/PYcYKMd+IX2wHk3A1O8rAYrEo7CFkA5vcHKwWJpcvcJZYqYq01lWkae9Y6VMbQH59ucAnw8xejd7RftbbOixE3ysiXTKP4jEPYihmuNbC4C7gOV5vgcJ22/vqXCAvesxn6XsJG5C/7GfC00XS/TDee1vMl1wDZI6HRH86GN1IX4t5re9aiE5 root@ip-172-31-4-207.ap-southe-1.compute.internal
+[root@ip-172-31-4-207 .ssh]#
+[root@ip-172-31-4-207 .ssh]# vi authorized_keys
+[root@ip-172-31-4-207 .ssh]#
+
+** Test ssh to all node
+[root@ip-172-31-4-207 .ssh]# ssh ip-172-31-4-207.ap-southeast-1.compute.internal
+The authenticity of host 'ip-172-31-4-207.ap-southeast-1.compute.internal (172.31.4.207)' can't be established.
+ECDSA key fingerprint is 5c:42:30:43:4e:f3:8d:8d:33:84:2f:ba:66:ea:53:cc.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'ip-172-31-4-207.ap-southeast-1.compute.internal' (ECDSA) to the list of known hosts.
+Last login: Mon Feb 13 11:25:00 2017 from ip-172-31-4-207.ap-southeast-1.compute.internal
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]# ssh ip-172-31-15-226.ap-southeast-1.compute.internal
+The authenticity of host 'ip-172-31-15-226.ap-southeast-1.compute.internal (172.31.15.226)' can't be established.
+ECDSA key fingerprint is 1d:ea:a1:a9:54:96:4e:ad:4a:1a:1c:df:6f:7c:ed:77.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'ip-172-31-15-226.ap-southeast-1.compute.internal,172.31.15.226' (ECDSA) to the list of known hosts.
+[root@ip-172-31-15-226 ~]#
+[root@ip-172-31-15-226 ~]#
+[root@ip-172-31-15-226 ~]# exit
+logout
+Connection to ip-172-31-15-226.ap-southeast-1.compute.internal closed.
+[root@ip-172-31-4-207 ~]# ssh ip-172-31-3-223.ap-southeast-1.compute.internal
+The authenticity of host 'ip-172-31-3-223.ap-southeast-1.compute.internal (172.31.3.223)' can't be established.
+ECDSA key fingerprint is e5:f3:66:45:90:4c:0a:8a:05:53:33:cf:c2:fd:ec:04.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'ip-172-31-3-223.ap-southeast-1.compute.internal,172.31.3.223' (ECDSA) to the list of known hosts.
+[root@ip-172-31-3-223 ~]# exit
+logout
+Connection to ip-172-31-3-223.ap-southeast-1.compute.internal closed.
+[root@ip-172-31-4-207 ~]# ssh ip-172-31-13-39.ap-southeast-1.compute.internal
+The authenticity of host 'ip-172-31-13-39.ap-southeast-1.compute.internal (172.31.13.39)' can't be established.
+ECDSA key fingerprint is b4:c0:ad:6e:12:b9:7f:42:69:e0:c3:84:36:8d:86:a8.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'ip-172-31-13-39.ap-southeast-1.compute.internal,172.31.13.39' (ECDSA) to the list of known hosts.
+[root@ip-172-31-13-39 ~]# exit
+logout
+Connection to ip-172-31-13-39.ap-southeast-1.compute.internal closed.
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]# ssh ip-172-31-14-77.ap-southeast-1.compute.internal
+The authenticity of host 'ip-172-31-14-77.ap-southeast-1.compute.internal (172.31.14.77)' can't be established.
+ECDSA key fingerprint is 8b:e0:86:f2:92:dc:55:55:d7:03:c8:aa:52:42:12:c3.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'ip-172-31-14-77.ap-southeast-1.compute.internal,172.31.14.77' (ECDSA) to the list of known hosts.
+Last login: Mon Feb 13 10:46:31 2017
+[root@ip-172-31-14-77 ~]#
+[root@ip-172-31-14-77 ~]# exit
+logout
+Connection to ip-172-31-14-77.ap-southeast-1.compute.internal closed.
+[root@ip-172-31-4-207 ~]#
+```
