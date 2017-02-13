@@ -305,4 +305,12 @@ Dependency Installed:
 
 Complete!
 [root@ip-172-31-15-226 ~]#
+[root@ip-172-31-15-226 ~]# service mariadb status
+Redirecting to /bin/systemctl status  mariadb.service
+● mariadb.service - MariaDB database server
+   Loaded: loaded (/usr/lib/systemd/system/mariadb.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+[root@ip-172-31-15-226 ~]#
 ```
+
+
