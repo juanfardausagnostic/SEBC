@@ -527,3 +527,81 @@ MariaDB [(none)]> show databases;
 
 MariaDB [(none)]>
 ```
+Set Replica (On Master)
+```
+[root@ip-172-31-4-207 ~]# cat /etc/my.cnf |grep server
+# define uniq server ID
+server-id=101
+[root@ip-172-31-4-207 ~]# service mariadb start
+Redirecting to /bin/systemctl start  mariadb.service
+[root@ip-172-31-4-207 ~]# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 2
+Server version: 5.5.52-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> GRANT REPLICATION SLAVE ON *.* TO 'repuser'@'ip-172-31-15-226.ap-southeast-1.compute.internal' IDENTIFIED BY 'password';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> show master status;
++-------------------------+----------+--------------+------------------+
+| File                    | Position | Binlog_Do_DB | Binlog_Ignore_DB |
++-------------------------+----------+--------------+------------------+
+| mysql_binary_log.000005 |      439 |              |                  |
++-------------------------+----------+--------------+------------------+
+1 row in set (0.00 sec)
+
+MariaDB [(none)]>
+MariaDB [(none)]> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]>
+```
+Set Replica (On Slave)
+```
+[root@ip-172-31-15-226 etc]# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 11
+Server version: 5.5.52-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show slave status;
+Empty set (0.01 sec)
+
+MariaDB [(none)]> stop slave;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+MariaDB [(none)]> CHANGE MASTER TO MASTER_HOST='172.31.4.207', MASTER_USER='repuser', MASTER_PASSWORD='password', MASTER_LOG_FILE='mysql_binary_log.000005', MASTER_LOG_POS=439;
+Query OK, 0 rows affected (0.01 sec)
+
+MariaDB [(none)]> start slave;
+Query OK, 0 rows affected (0.01 sec)
+
+MariaDB [(none)]> show slave status;
++----------------------------------+--------------+-------------+-------------+---------------+-------------------------+---------------------+--------------------------+---------------+-------------------------+------------------+-------------------+-----------------+---------------------+--------------------+------------------------+-------------------------+-----------------------------+------------+------------+--------------+---------------------+-----------------+-----------------+----------------+---------------+--------------------+--------------------+--------------------+-----------------+-------------------+----------------+-----------------------+-------------------------------+---------------+---------------+----------------+----------------+-----------------------------+------------------+
+| Slave_IO_State                   | Master_Host  | Master_User | Master_Port | Connect_Retry | Master_Log_File         | Read_Master_Log_Pos | Relay_Log_File           | Relay_Log_Pos | Relay_Master_Log_File   | Slave_IO_Running | Slave_SQL_Running | Replicate_Do_DB | Replicate_Ignore_DB | Replicate_Do_Table | Replicate_Ignore_Table | Replicate_Wild_Do_Table | Replicate_Wild_Ignore_Table | Last_Errno | Last_Error | Skip_Counter | Exec_Master_Log_Pos | Relay_Log_Space | Until_Condition | Until_Log_File | Until_Log_Pos | Master_SSL_Allowed | Master_SSL_CA_File | Master_SSL_CA_Path | Master_SSL_Cert | Master_SSL_Cipher | Master_SSL_Key | Seconds_Behind_Master | Master_SSL_Verify_Server_Cert | Last_IO_Errno | Last_IO_Error | Last_SQL_Errno | Last_SQL_Error | Replicate_Ignore_Server_Ids | Master_Server_Id |
++----------------------------------+--------------+-------------+-------------+---------------+-------------------------+---------------------+--------------------------+---------------+-------------------------+------------------+-------------------+-----------------+---------------------+--------------------+------------------------+-------------------------+-----------------------------+------------+------------+--------------+---------------------+-----------------+-----------------+----------------+---------------+--------------------+--------------------+--------------------+-----------------+-------------------+----------------+-----------------------+-------------------------------+---------------+---------------+----------------+----------------+-----------------------------+------------------+
+| Waiting for master to send event | 172.31.4.207 | repuser     |        3306 |            60 | mysql_binary_log.000005 |                 514 | mariadb-relay-bin.000002 |           611 | mysql_binary_log.000005 | Yes              | Yes               |                 |                     |                    |                        |                         |                             |          0 |            |            0 |                 514 |             907 | None            |                |             0 | No                 |                    |                    |                 |                   |                |                     0 | No                            |             0 |               |              0 |                |                             |              101 |
++----------------------------------+--------------+-------------+-------------+---------------+-------------------------+---------------------+--------------------------+---------------+-------------------------+------------------+-------------------+-----------------+---------------------+--------------------+------------------------+-------------------------+-----------------------------+------------+------------+--------------+---------------------+-----------------+-----------------+----------------+---------------+--------------------+--------------------+--------------------+-----------------+-------------------+----------------+-----------------------+-------------------------------+---------------+---------------+----------------+----------------+-----------------------------+------------------+
+1 row in set (0.00 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
++--------------------+
+3 rows in set (0.00 sec)
+
+MariaDB [(none)]>
+```
