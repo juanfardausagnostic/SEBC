@@ -11,7 +11,7 @@ vm.swappiness = 1
 1
 [root@ip-172-31-4-207 ~]#
 
-Setup permanent when machine startup
+** Setup permanent when machine startup
 [root@ip-172-31-4-207 ~]# tail -2 /etc/sysctl.conf
 ####################
 vm.swappiness=1
@@ -36,4 +36,6 @@ Show the reserve space of any non-root, ext-based volumes
 [root@ip-172-31-4-207 ~]# egrep "^/dev/*" /proc/mounts
 /dev/xvda2 / xfs rw,seclabel,relatime,attr2,inode64,noquota 0 0
 [root@ip-172-31-4-207 ~]#
+
+** I'm configure only 1 volum to shared with all (root and non-root)
 ```
