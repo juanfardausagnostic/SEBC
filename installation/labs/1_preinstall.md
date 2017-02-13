@@ -10,5 +10,18 @@ vm.swappiness = 1
 [root@ip-172-31-4-207 ~]# cat /proc/sys/vm/swappiness
 1
 [root@ip-172-31-4-207 ~]#
+```
 
+2. Show mount attributed
+```
+[root@ip-172-31-4-207 ~]# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/xvda2      100G  984M  100G   1% /
+devtmpfs        3.9G     0  3.9G   0% /dev
+tmpfs           3.7G     0  3.7G   0% /dev/shm
+tmpfs           3.7G   17M  3.7G   1% /run
+tmpfs           3.7G     0  3.7G   0% /sys/fs/cgroup
+tmpfs           757M     0  757M   0% /run/user/1000
+tmpfs           757M     0  757M   0% /run/user/0
+[root@ip-172-31-4-207 ~]#
 ```
