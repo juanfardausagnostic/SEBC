@@ -12,7 +12,7 @@ vm.swappiness = 1
 [root@ip-172-31-4-207 ~]#
 ```
 
-2. Show mount attributed
+2. Show mount attributed of all volumes
 ```
 [root@ip-172-31-4-207 ~]# df -h
 Filesystem      Size  Used Avail Use% Mounted on
