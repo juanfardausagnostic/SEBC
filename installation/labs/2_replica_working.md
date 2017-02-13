@@ -509,4 +509,21 @@ MariaDB [(none)]> grant all on navms.* TO 'navms'@'%' IDENTIFIED BY 'password';
 Query OK, 0 rows affected (0.00 sec)
 
 MariaDB [(none)]>
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| amon               |
+| metastore          |
+| mysql              |
+| nav                |
+| navms              |
+| performance_schema |
+| rman               |
+| sentry             |
++--------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [(none)]>
 ```
