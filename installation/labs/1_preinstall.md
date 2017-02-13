@@ -97,7 +97,7 @@ List forward and reverse host lookups using getent or nslookup
 172.31.4.207    ip-172-31-4-207.ap-southeast-1.compute.internal
 [root@ip-172-31-4-207 ~]#
 ```
-Show nscd service running
+Show nscd service is running
 ```
 ** Check RHEL Repo and YUM service available
 [root@ip-172-31-4-207 ~]# head /etc/yum.repos.d/redhat-rhui.repo
@@ -217,6 +217,105 @@ Feb 13 04:01:49 ip-172-31-4-207.ap-southeast-1.compute.internal nscd[3260]: 3260
 Feb 13 04:01:49 ip-172-31-4-207.ap-southeast-1.compute.internal nscd[3260]: 3260 stat failed for file `/etc/netgroup'; will t...ory
 Feb 13 04:01:49 ip-172-31-4-207.ap-southeast-1.compute.internal nscd[3260]: 3260 Access Vector Cache (AVC) started
 Feb 13 04:01:49 ip-172-31-4-207.ap-southeast-1.compute.internal systemd[1]: Started Name Service Cache Daemon.
+Hint: Some lines were ellipsized, use -l to show in full.
+[root@ip-172-31-4-207 ~]#
+```
+Show the ntpd service is running
+```
+** Install ntpd package
+[root@ip-172-31-4-207 ~]# yum list ntp
+Loaded plugins: amazon-id, rhui-lb, search-disabled-repos
+Available Packages
+ntp.x86_64                                   4.2.6p5-25.el7_3.1                                    rhui-REGION-rhel-server-releases
+[root@ip-172-31-4-207 ~]#
+
+[root@ip-172-31-4-207 ~]# yum install ntp
+Loaded plugins: amazon-id, rhui-lb, search-disabled-repos
+Resolving Dependencies
+--> Running transaction check
+---> Package ntp.x86_64 0:4.2.6p5-25.el7_3.1 will be installed
+--> Processing Dependency: ntpdate = 4.2.6p5-25.el7_3.1 for package: ntp-4.2.6p5-25.el7_3.1.x86_64
+--> Processing Dependency: libopts.so.25()(64bit) for package: ntp-4.2.6p5-25.el7_3.1.x86_64
+--> Running transaction check
+---> Package autogen-libopts.x86_64 0:5.18-5.el7 will be installed
+---> Package ntpdate.x86_64 0:4.2.6p5-25.el7_3.1 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===================================================================================================================================
+ Package                     Arch               Version                         Repository                                    Size
+===================================================================================================================================
+Installing:
+ ntp                         x86_64             4.2.6p5-25.el7_3.1              rhui-REGION-rhel-server-releases             547 k
+Installing for dependencies:
+ autogen-libopts             x86_64             5.18-5.el7                      rhui-REGION-rhel-server-releases              66 k
+ ntpdate                     x86_64             4.2.6p5-25.el7_3.1              rhui-REGION-rhel-server-releases              85 k
+
+Transaction Summary
+===================================================================================================================================
+Install  1 Package (+2 Dependent packages)
+
+Total download size: 699 k
+Installed size: 1.6 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/3): autogen-libopts-5.18-5.el7.x86_64.rpm                                                                |  66 kB  00:00:00
+(2/3): ntp-4.2.6p5-25.el7_3.1.x86_64.rpm                                                                    | 547 kB  00:00:00
+(3/3): ntpdate-4.2.6p5-25.el7_3.1.x86_64.rpm                                                                |  85 kB  00:00:00
+-----------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                              793 kB/s | 699 kB  00:00:00
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : autogen-libopts-5.18-5.el7.x86_64                                                                               1/3
+  Installing : ntpdate-4.2.6p5-25.el7_3.1.x86_64                                                                               2/3
+  Installing : ntp-4.2.6p5-25.el7_3.1.x86_64                                                                                   3/3
+  Verifying  : ntpdate-4.2.6p5-25.el7_3.1.x86_64                                                                               1/3
+  Verifying  : ntp-4.2.6p5-25.el7_3.1.x86_64                                                                                   2/3
+  Verifying  : autogen-libopts-5.18-5.el7.x86_64                                                                               3/3
+
+Installed:
+  ntp.x86_64 0:4.2.6p5-25.el7_3.1
+
+Dependency Installed:
+  autogen-libopts.x86_64 0:5.18-5.el7                              ntpdate.x86_64 0:4.2.6p5-25.el7_3.1
+
+Complete!
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]# service ntpd status
+Redirecting to /bin/systemctl status  ntpd.service
+● ntpd.service - Network Time Service
+   Loaded: loaded (/usr/lib/systemd/system/ntpd.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+[root@ip-172-31-4-207 ~]#
+```
+```
+** Start ntpd service
+[root@ip-172-31-4-207 ~]# service ntpd start
+Redirecting to /bin/systemctl start  ntpd.service
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]# service ntpd status
+Redirecting to /bin/systemctl status  ntpd.service
+● ntpd.service - Network Time Service
+   Loaded: loaded (/usr/lib/systemd/system/ntpd.service; disabled; vendor preset: disabled)
+   Active: active (running) since Mon 2017-02-13 04:08:40 EST; 2s ago
+  Process: 3409 ExecStart=/usr/sbin/ntpd -u ntp:ntp $OPTIONS (code=exited, status=0/SUCCESS)
+ Main PID: 3410 (ntpd)
+   CGroup: /system.slice/ntpd.service
+           └─3410 /usr/sbin/ntpd -u ntp:ntp -g
+
+Feb 13 04:08:40 ip-172-31-4-207.ap-southeast-1.compute.internal ntpd[3410]: Listen and drop on 1 v6wildcard :: UDP 123
+Feb 13 04:08:40 ip-172-31-4-207.ap-southeast-1.compute.internal ntpd[3410]: Listen normally on 2 lo 127.0.0.1 UDP 123
+Feb 13 04:08:40 ip-172-31-4-207.ap-southeast-1.compute.internal ntpd[3410]: Listen normally on 3 eth0 172.31.4.207 UDP 123
+Feb 13 04:08:40 ip-172-31-4-207.ap-southeast-1.compute.internal ntpd[3410]: Listen normally on 4 eth0 fe80::12:d4ff:fecb:401b...123
+Feb 13 04:08:40 ip-172-31-4-207.ap-southeast-1.compute.internal ntpd[3410]: Listen normally on 5 lo ::1 UDP 123
+Feb 13 04:08:40 ip-172-31-4-207.ap-southeast-1.compute.internal ntpd[3410]: Listening on routing socket on fd #22 for interfa...tes
+Feb 13 04:08:40 ip-172-31-4-207.ap-southeast-1.compute.internal systemd[1]: Started Network Time Service.
+Feb 13 04:08:41 ip-172-31-4-207.ap-southeast-1.compute.internal ntpd[3410]: 0.0.0.0 c016 06 restart
+Feb 13 04:08:41 ip-172-31-4-207.ap-southeast-1.compute.internal ntpd[3410]: 0.0.0.0 c012 02 freq_set kernel 0.000 PPM
+Feb 13 04:08:41 ip-172-31-4-207.ap-southeast-1.compute.internal ntpd[3410]: 0.0.0.0 c011 01 freq_not_set
 Hint: Some lines were ellipsized, use -l to show in full.
 [root@ip-172-31-4-207 ~]#
 ```
