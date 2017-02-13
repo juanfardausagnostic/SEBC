@@ -49,3 +49,33 @@ Disable transparent hugepages
 always madvise [never]
 [root@ip-172-31-4-207 ~]#
 ```
+List the network interface configuration
+```
+[root@ip-172-31-4-207 ~]# ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9001
+        inet 172.31.4.207  netmask 255.255.240.0  broadcast 172.31.15.255
+        inet6 fe80::12:d4ff:fecb:401b  prefixlen 64  scopeid 0x20<link>
+        ether 02:12:d4:cb:40:1b  txqueuelen 1000  (Ethernet)
+        RX packets 3648  bytes 320205 (312.7 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 3403  bytes 534153 (521.6 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1  (Local Loopback)
+        RX packets 68  bytes 6420 (6.2 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 68  bytes 6420 (6.2 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]#
+[root@ip-172-31-4-207 ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth* | egrep "^DEVICE|BOOTPROTO|ONBOOT|NETMASK|NETWORK|IPADDR|PEERDNS"
+DEVICE="eth0"
+BOOTPROTO="dhcp"
+ONBOOT="yes"
+PEERDNS="yes"
+[root@ip-172-31-4-207 ~]#
+```
