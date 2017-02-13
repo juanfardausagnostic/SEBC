@@ -91,3 +91,9 @@ ONBOOT="yes"
 PEERDNS="yes"
 [root@ip-172-31-4-207 ~]#
 ```
+List forward and reverse host lookups using getent or nslookup
+```
+[root@ip-172-31-4-207 ~]# getent hosts 172.31.4.207
+172.31.4.207    ip-172-31-4-207.ap-southeast-1.compute.internal
+[root@ip-172-31-4-207 ~]#
+```
