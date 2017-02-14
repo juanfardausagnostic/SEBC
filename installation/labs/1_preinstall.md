@@ -478,3 +478,45 @@ Configure ulimit
 # End of file
 [root@ip-172-31-4-207 ~]#
 ```
+Disable SELinux
+```
+[root@ip-172-31-4-207 hadoop-hdfs]# sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   enforcing
+Mode from config file:          enforcing
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Max kernel policy version:      28
+[root@ip-172-31-4-207 hadoop-hdfs]# setenforce 0
+[root@ip-172-31-4-207 hadoop-hdfs]# sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   permissive
+Mode from config file:          enforcing
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Max kernel policy version:      28
+[root@ip-172-31-4-207 hadoop-hdfs]#
+
+[root@ip-172-31-4-207 hadoop-hdfs]# cat /etc/sysconfig/selinux
+
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+SELINUX=disabled
+# SELINUXTYPE= can take one of three two values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected.
+#     mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+
+
+[root@ip-172-31-4-207 hadoop-hdfs]#
+```
