@@ -1,0 +1,1 @@
+<center> <img src="png/install-15_(rename_cluster).png"/> </center>
