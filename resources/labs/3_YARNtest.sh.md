@@ -1,3 +1,4 @@
+```
 #!/bin/sh
 # Confirm the path values given below correspond to your installation
 
@@ -58,3 +59,4 @@ echo -e "\n## clean hdfs directory ##"
 done
 
 echo Testing loop ended on `date`
+```
