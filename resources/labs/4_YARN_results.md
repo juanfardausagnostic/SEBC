@@ -1,4 +1,4 @@
-Best Round
+Fastest Round
 ```
 ########### Parameter ######################
 # Data size = 51200000 byte
