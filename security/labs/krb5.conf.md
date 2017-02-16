@@ -1,3 +1,4 @@
+```
 [libdefaults]
 default_realm = SEBC.COM
 dns_lookup_kdc = false
@@ -15,3 +16,4 @@ SEBC.COM = {
 kdc = ip-172-31-4-207.ap-southeast-1.compute.internal
 admin_server = ip-172-31-4-207.ap-southeast-1.compute.internal
 }
+```
