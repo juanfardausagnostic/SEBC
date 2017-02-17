@@ -1,14 +1,16 @@
 ## Command and output for hdfs dfs -ls /user
 ```
 [root@ip-172-31-7-226 mysql]# hdfs dfs -ls /user
-Found 6 items
-drwxr-xr-x   - hdfs   supergroup          0 2017-02-17 15:08 /user/fullerton
-drwxrwxrwx   - mapred hadoop              0 2017-02-17 15:04 /user/history
-drwxrwxr-t   - hive   hive                0 2017-02-17 15:04 /user/hive
-drwxrwxr-x   - hue    hue                 0 2017-02-17 15:05 /user/hue
-drwxrwxr-x   - oozie  oozie               0 2017-02-17 15:05 /user/oozie
-drwxr-xr-x   - hdfs   supergroup          0 2017-02-17 15:08 /user/raffles
-[root@ip-172-31-7-226 mysql]#
+Found 8 items
+drwxr-xr-x   - admin     admin               0 2017-02-17 15:12 /user/admin
+drwxr-xr-x   - fullerton supergroup          0 2017-02-17 15:08 /user/fullerton
+drwxr-xr-x   - hdfs      supergroup          0 2017-02-17 15:12 /user/hdfs
+drwxrwxrwx   - mapred    hadoop              0 2017-02-17 15:04 /user/history
+drwxrwxr-t   - hive      hive                0 2017-02-17 15:04 /user/hive
+drwxrwxr-x   - hue       hue                 0 2017-02-17 15:05 /user/hue
+drwxrwxr-x   - oozie     oozie               0 2017-02-17 15:05 /user/oozie
+drwxr-xr-x   - raffles   supergroup          0 2017-02-17 15:08 /user/raffles
+[root@ip-172-31-7-226 mysql]# 
 ```
 ## The output from the CM API
 ```
