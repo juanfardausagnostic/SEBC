@@ -1,3 +1,7 @@
+## Cloud Provider
+```
+My cloud provider is "AWS"
+```
 ## OS version
 ```
 [root@ip-172-31-12-111 ~]# cat /etc/redhat-release
@@ -29,17 +33,17 @@ repo id                                                 repo name               
 repolist: 14,053
 [root@ip-172-31-12-111 ~]#
 ```
-## List the /etc/passwd entries for donald and vladimir
+## List the /etc/passwd entries for raffles and fullerton
 ```
-[root@ip-172-31-12-111 ~]# cat /etc/passwd |grep -E "donald|vladimir"
-donald:x:2700:1002::/home/donald:/bin/bash
-vladimir:x:2800:1001::/home/vladimir:/bin/bash
-[root@ip-172-31-12-111 ~]#
+[root@ip-172-31-12-111 ~]# cat /etc/passwd |grep -E "raffles|fullerton"
+raffles:x:2000:1003::/home/raffles:/bin/bash
+fullerton:x:3000:1004::/home/fullerton:/bin/bash
+[root@ip-172-31-12-111 ~]# 
 ```
-## List the /etc/group entries for hackers and crackers
+## List the /etc/group entries for hotels and shops
 ```
-[root@ip-172-31-12-111 ~]# cat /etc/group |grep -E "hackers|crackers"
-hackers:x:1001:
-crackers:x:1002:
-[root@ip-172-31-12-111 ~]#
+[root@ip-172-31-12-111 ~]# cat /etc/group |grep -E "shops|hotels"
+shops:x:1003:
+hotels:x:1004:
+[root@ip-172-31-12-111 ~]# 
 ```
