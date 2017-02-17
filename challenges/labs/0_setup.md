@@ -1,6 +1,10 @@
 ## Cloud Provider
 ```
 My cloud provider is "AWS"
+
+[root@ip-172-31-12-111 ~]# cat /sys/hypervisor/uuid
+ec2ac4ad-2a8c-f1a9-4af0-575b3b2c7e10
+[root@ip-172-31-12-111 ~]#
 ```
 ## OS version
 ```
